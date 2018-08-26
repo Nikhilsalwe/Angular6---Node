@@ -1,27 +1,28 @@
 <mat-card>
-    <form (submit) = "onAddPost(postForm)" #postForm="ngForm"> <!--this line of code givs us the form obj -->
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form (submit) = "onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading"> <!--this line of code givs us the form obj -->
             <mat-form-field>
-                    <input 
-                        matInput type="text" 
-                        ngModel 
-                        name = "title" 
+                    <input
+                        matInput type="text"
+                        [ngModel] = "post?.title"
+                        name = "title"
                         required
                         placeholder="Post Title"
                         #title = "ngModel"/>
                         <mat-error *ngIf="title.invalid">Please enter a post title</mat-error>
             </mat-form-field>
             <mat-form-field>
-                <textarea  
+                <textarea
                     matInput col="4"
                     name = "content"
-                    ngModel 
+                    [ngModel] = "post?.content"
                     required
                     placeholder="Post Content"
                     #content="ngModel"></textarea>
                     <mat-error *ngIf="content.invalid">Please enter a post content</mat-error>
             </mat-form-field>
-            <button 
-            mat-raised-button 
+            <button
+            mat-raised-button
             color = "accent"
             type="submit">Save Post</button>
     </form>
@@ -29,7 +30,7 @@
 
 
 
-<!-- 
+<!--
     commenting this because this is another approach while in above code we added form html5 element
     in angular it will automatical identify the change made
     <mat-card>
@@ -39,8 +40,8 @@
         <mat-form-field>
             <textarea matInput col="4" [(ngModel)]="enteredContent" ></textarea>
         </mat-form-field>
-        <button 
-        mat-raised-button 
+        <button
+        mat-raised-button
         color = "accent"
         (click)="onAddPost()">Save Post</button>
     </mat-card> -->
